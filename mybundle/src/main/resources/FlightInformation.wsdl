@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s3="http://schemas.virgin-atlantic.com/Common/2011/05" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.virgin-atlantic.com/webservices/" xmlns:s4="http://schemas.virgin-atlantic.com/Services/ServiceCallingContext/2011" xmlns:s1="http://schemas.virgin-atlantic.com/Operations/Flights/Services/Flight/2011/05" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s2="http://schemas.virgin-atlantic.com/Operations/Flights/Information/2011/05" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://www.virgin-atlantic.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.virgin-atlantic.com/webservices/">
+      <s:import namespace="http://schemas.virgin-atlantic.com/Operations/Flights/Services/Flight/2011/05" />
+      <s:element name="GetFlightStatusInformation">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:sRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlightStatusInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" ref="s1:GetFlightStatusInformationResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.virgin-atlantic.com/Operations/Flights/Services/Flight/2011/05">
+      <s:import namespace="http://schemas.virgin-atlantic.com/Operations/Flights/Information/2011/05" />
+      <s:import namespace="http://schemas.virgin-atlantic.com/Common/2011/05" />
+      <s:element name="sRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="unbounded" name="StatusRQ">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="1" name="FlightDetails" type="s2:StandardFlightInformation_Type" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFlightStatusInformationResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="unbounded" name="StatusRS">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="FlightDetails" type="s2:StandardFlightInformation_Type" />
+                  <s:element minOccurs="0" maxOccurs="1" name="PassengerFlightDetails" type="s3:PassengerFlightDetails_Type" />
+                  <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:Result_Type" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="Result" type="s3:Result_Type" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.virgin-atlantic.com/Operations/Flights/Information/2011/05">
+      <s:import namespace="http://schemas.virgin-atlantic.com/Common/2011/05" />
+      <s:complexType name="StandardFlightInformation_Type">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Equipment" type="s3:Equipment_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Flight" type="s3:Flight_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ScheduledDepartureDate" type="s3:DateTime_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActualDepartureDate" type="s3:DateTime_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EstimatedDepartureDate" type="s3:DateTime_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OriginAirport" type="s3:Airport_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="DestinationAirport" type="s3:Airport_Type" />
+          <s:element minOccurs="0" maxOccurs="1" name="DateRange" type="s3:DateRange_Type" />
+          <s:element minOccurs="0" maxOccurs="1" name="SeatMap" type="s3:ArrayOfSeatMap_TypeCabinClass" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ScheduledArrivalDate" type="s3:DateTime_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ActualArrivalDate" type="s3:DateTime_Type" />
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EstimatedArrivalDate" type="s3:DateTime_Type" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.virgin-atlantic.com/Common/2011/05">
+      <s:complexType name="Equipment_Type">
+        <s:attribute name="aircraftType" type="s:string" />
+        <s:attribute name="airEquipType" type="s:string" />
+        <s:attribute name="aircraftTailNumber" type="s:string" />
+        <s:attribute name="series" type="s:string" />
+        <s:attribute name="model" type="s:string" />
+        <s:attribute name="description" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Flight_Type">
+        <s:attribute name="carrierCode" type="s:string" />
+        <s:attribute name="flightNumber" type="s:int" use="required" />
+        <s:attribute name="flightSegmentNumber" type="s:int" />
+        <s:attribute name="flightLegNumber" type="s:int" />
+        <s:attribute name="isAPISFlight" type="s:boolean" />
+        <s:attribute name="flightStatus" type="s:string" />
+        <s:attribute name="flightCheckinStatus" type="s:string" />
+        <s:attribute name="isVAACodeShare" type="s:boolean" />
+        <s:attribute name="codeShareCarrier" type="s:string" />
+        <s:attribute name="codeShareFlightNumber" type="s:int" />
+        <s:attribute name="codeShareAircraftOwner" type="s:string" />
+        <s:attribute name="newFlightNumber" type="s:int" />
+      </s:complexType>
+      <s:complexType name="DateTime_Type">
+        <s:attribute name="localDate" type="s:date" use="required" />
+        <s:attribute name="utcDate" type="s:date" />
+        <s:attribute name="localTime" type="s:string" />
+        <s:attribute name="utcTime" type="s:string" />
+        <s:attribute name="RPH" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Airport_Type">
+        <s:attribute name="name" type="s:string" />
+        <s:attribute name="IATAAirportCode" type="s:string" />
+        <s:attribute name="ICAOAirportCode" type="s:string" />
+        <s:attribute name="cityName" type="s:string" />
+        <s:attribute name="IATACityCode" type="s:string" />
+        <s:attribute name="gate" type="s:string" />
+        <s:attribute name="terminal" type="s:string" />
+        <s:attribute name="isRevised" type="s:boolean" />
+        <s:attribute name="RPH" type="s:string" />
+      </s:complexType>
+      <s:complexType name="DateRange_Type">
+        <s:attribute name="plusIndicator" type="s:integer" />
+        <s:attribute name="minusIndicator" type="s:integer" />
+      </s:complexType>
+      <s:complexType name="ArrayOfSeatMap_TypeCabinClass">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="CabinClass">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="AirRows" type="s3:ArrayOfSeatMap_TypeCabinClassAirRow" />
+              </s:sequence>
+              <s:attribute name="cabinType" type="s:string" />
+              <s:attribute name="name" type="s:string" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSeatMap_TypeCabinClassAirRow">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AirRow">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="1" name="AirSeats" type="s3:ArrayOfSeatMap_TypeCabinClassAirRowAirSeat" />
+                <s:element minOccurs="0" maxOccurs="1" name="AirRowCharacteristics">
+                  <s:complexType>
+                    <s:attribute name="characteristicList" type="s:string" />
+                  </s:complexType>
+                </s:element>
+              </s:sequence>
+              <s:attribute name="rowNumber" type="s:string" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfSeatMap_TypeCabinClassAirRowAirSeat">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="AirSeat">
+            <s:complexType>
+              <s:attribute name="seatAvailability" type="s:string" />
+              <s:attribute name="seatNumber" type="s:string" />
+              <s:attribute name="seatCharacteristics" type="s:string" />
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PassengerFlightDetails_Type">
+        <s:attribute name="numPaxOnSameBookingReferenceNumber" type="s:int" />
+        <s:attribute name="flightRPH" type="s:int" />
+        <s:attribute name="passengerRPH" type="s:int" />
+        <s:attribute name="paxCounts" type="s:int" />
+        <s:attribute name="unassignedSeatCount" type="s:int" />
+        <s:attribute name="malePaxCount" type="s:int" />
+        <s:attribute name="femalePaxCount" type="s:int" />
+        <s:attribute name="childPaxCount" type="s:int" />
+        <s:attribute name="infantPaxCount" type="s:int" />
+      </s:complexType>
+      <s:complexType name="Result_Type">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TechnicalExceptions" type="s3:TechnicalException_Type" />
+        </s:sequence>
+        <s:attribute name="date" type="s:dateTime" use="required" />
+        <s:attribute name="result" type="s:string" />
+        <s:attribute name="messageId" type="s:string" />
+        <s:attribute name="description" type="s:string" />
+        <s:attribute name="resultType" type="s:string" />
+        <s:attribute name="resultCategory" type="s:string" />
+        <s:attribute name="resultCode" type="s:string" />
+        <s:attribute name="severity" type="s:string" />
+        <s:attribute name="action" type="s:string" />
+      </s:complexType>
+      <s:complexType name="TechnicalException_Type">
+        <s:attribute name="date" type="s:dateTime" />
+        <s:attribute name="errorCode" type="s:string" />
+        <s:attribute name="errorDescription" type="s:string" />
+        <s:attribute name="severity" type="s:string" />
+        <s:attribute name="system" type="s:string" />
+        <s:attribute name="object" type="s:string" />
+        <s:attribute name="method" type="s:string" />
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://schemas.virgin-atlantic.com/Services/ServiceCallingContext/2011">
+      <s:element name="ServiceCallingContext">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="HeaderVersion" type="s4:HeaderVersion_Type" />
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="CallingContext" type="s4:CallingContext_Type" />
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="UserContext" type="s4:UserContext_Type" />
+            <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="ApplicationName" type="s4:ApplicationName_Type" />
+          </s:sequence>
+          <s:anyAttribute />
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HeaderVersion_Type">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="HeaderVersion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="CallingContext_Type">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="LocalTransactionStartDateTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" form="unqualified" name="UTCTransactionStartDateTime" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserContext_Type">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="DatabaseName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="RequestId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="NodeId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ApplicationName_Type">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="GUID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="VersionId" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" form="unqualified" name="GroupId" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetFlightStatusInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFlightStatusInformation" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightStatusInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFlightStatusInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFlightStatusInformationServiceCallingContext">
+    <wsdl:part name="ServiceCallingContext" element="s4:ServiceCallingContext" />
+  </wsdl:message>
+  <wsdl:portType name="WS_FlyfoV3Soap">
+    <wsdl:operation name="GetFlightStatusInformation">
+      <wsdl:input message="tns:GetFlightStatusInformationSoapIn" />
+      <wsdl:output message="tns:GetFlightStatusInformationSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_FlyfoV3Soap" type="tns:WS_FlyfoV3Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFlightStatusInformation">
+      <soap:operation soapAction="http://www.virgin-atlantic.com/webservices/GetFlightStatusInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFlightStatusInformationServiceCallingContext" part="ServiceCallingContext" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_FlyfoV3Soap12" type="tns:WS_FlyfoV3Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFlightStatusInformation">
+      <soap12:operation soapAction="http://www.virgin-atlantic.com/webservices/GetFlightStatusInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetFlightStatusInformationServiceCallingContext" part="ServiceCallingContext" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_FlyfoV3">
+    <wsdl:port name="WS_FlyfoV3Soap" binding="tns:WS_FlyfoV3Soap">
+      <soap:address location="http://10.201.59.104/WS_FLYFOV3/WS_FLYFOV3_1.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_FlyfoV3Soap12" binding="tns:WS_FlyfoV3Soap12">
+      <soap12:address location="http://10.201.59.104/WS_FLYFOV3/WS_FLYFOV3_1.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
